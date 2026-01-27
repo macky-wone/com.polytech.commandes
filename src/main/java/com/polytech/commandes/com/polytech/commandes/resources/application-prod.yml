@@ -1,0 +1,27 @@
+Commandes:
+  admin:
+    name: Equipe Production
+    email: prod@polytech.edu.sn
+
+spring:
+  application:
+    name: Commandes
+
+  datasource:
+    username: ${DB_USER:root}
+    password: ${DB_PWD:root123}
+    url: ${DB_URL:jdbc:mysql://localhost:3306/commandes_prod}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: false
+        dialect: org.hibernate.dialect.MySQLDialect
+
+
+server:
+  port: 8080

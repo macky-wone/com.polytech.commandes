@@ -1,0 +1,23 @@
+Commandes:
+  admin:
+    name: Macky Mamadou WONE
+    email: wone.macky-mamadou@polytech.edu.sn
+
+spring:
+  application:
+    name: Commandes
+
+  datasource:
+    username: ${DB_USER:root}
+    password: ${DB_PWD:root123}
+    url: ${DB_URL:jdbc:mysql://localhost:3306/commandes_db}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect

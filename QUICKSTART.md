@@ -94,28 +94,28 @@ curl http://localhost:8080/api/lignes-commande/commande/1
 
 ## 📁 Fichiers importants
 
-| Fichier | Description |
-|---------|-------------|
-| `README.md` | Documentation complète |
-| `TESTING.md` | Guide de test détaillé |
-| `run.sh` | Script de lancement |
-| `.env.example` | Variables d'environnement |
-| `pom.xml` | Dépendances Maven |
-| `application.yaml` | Config par défaut |
-| `application-dev.yml` | Config développement |
-| `application-prod.yml` | Config production |
+| Fichier                | Description               |
+|------------------------|---------------------------|
+| `README.md`            | Documentation complète    |
+| `TESTING.md`           | Guide de test détaillé    |
+| `run.sh`               | Script de lancement       |
+| `.env.example`         | Variables d'environnement |
+| `pom.xml`              | Dépendances Maven         |
+| `application.yaml`     | Config par défaut         |
+| `application-dev.yml`  | Config développement      |
+| `application-prod.yml` | Config production         |
 
 ---
 
 ## 🔗 URLs importantes
 
-| URL | Accès |
-|-----|-------|
-| `http://localhost:8080/swagger-ui.html` | Documentation Swagger |
-| `http://localhost:8080/api/clients` | Endpoint clients |
-| `http://localhost:8080/api/produits` | Endpoint produits |
-| `http://localhost:8080/api/commandes` | Endpoint commandes |
-| `http://localhost:8080/api/lignes-commande` | Endpoint lignes |
+| URL                                         |      Accès            |
+|---------------------------------------------|-----------------------|
+| `http://localhost:8080/swagger-ui.html`     | Documentation Swagger |
+| `http://localhost:8080/api/clients`         | Endpoint clients      |
+| `http://localhost:8080/api/produits`        | Endpoint produits     |
+| `http://localhost:8080/api/commandes`       | Endpoint commandes    |
+| `http://localhost:8080/api/lignes-commande` | Endpoint lignes       |
 
 ---
 

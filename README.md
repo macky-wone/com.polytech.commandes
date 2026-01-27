@@ -137,11 +137,14 @@ cd com.polytech.commandes
 **Requiert les variables d'environnement :**
 
 ```bash
-export DB_USER=root
-export DB_PWD=root123
-export DB_URL=jdbc:mysql://localhost:3306/commandes_prod
+export SPRING_PROFILES_ACTIVE=prod
+export DB_URL=jdbc:mysql://prod-db:3306/commandes_prod
+export DB_USER=votre_utilisateur
+export DB_PWD=votre_mot_de_passe
 export SERVER_PORT=8080
 ```
+
+⚠️ **Voir `.env.example` pour la configuration complète**
 
 ### 4. Tests
 
@@ -273,13 +276,16 @@ curl http://localhost:8080/api/commandes/1
 
 ### Variables d'environnement
 
-| Variable | Défaut | Description |
-|----------|--------|-------------|
-| `SPRING_PROFILES_ACTIVE` | `dev` | Profil actif |
-| `DB_URL` | `jdbc:mysql://localhost:3306/commandes_dev` | URL de la BD |
-| `DB_USER` | `root` | Utilisateur BD |
-| `DB_PWD` | `root123` | Mot de passe BD |
-| `SERVER_PORT` | `8080` | Port du serveur |
+| Variable                  | Description               |  Exemple                                |
+|---------------------------|-------------------------- |-----------------------------------------|
+| `SPRING_PROFILES_ACTIVE`  | Profil actif              | `dev`, `test``prod`                     |
+| `DB_URL`                  | URL de la base de données | `jdbc:mysql://localhost:3306/commandes` |
+| `DB_USER`                 | Utilisateur de la BD      | À configurer                            |
+| `DB_PWD`                  | Mot de passe de la BD     | À configurer                            |
+| `SERVER_PORT`             | Port du serveur           | `8080`                                  |
+
+⚠️ **SÉCURITÉ : Ne JAMAIS commiter les vraies valeurs de `DB_USER` et `DB_PWD`**  
+✅ Toujours utiliser `.env` ou variables d'environnement
 
 ### Fichiers de configuration
 
@@ -337,13 +343,18 @@ curl http://localhost:8080/api/commandes/1
 ### Lancer le JAR
 
 ```bash
+# Configurer les variables d'environnement AVANT de lancer
+export DB_URL=jdbc:mysql://prod-db:3306/commandes
+export DB_USER=votre_utilisateur
+export DB_PWD=votre_mot_de_passe
+
+# Puis lancer l'application
 java -Dspring.profiles.active=prod \
-     -DSPRING_PROFILES_ACTIVE=prod \
-     -DDB_URL=jdbc:mysql://prod-db:3306/commandes \
-     -DDB_USER=dbuser \
-     -DDB_PWD=dbpassword \
      -jar target/commandes-0.0.1-SNAPSHOT.jar
 ```
+
+⚠️ **Les identifiants ne doivent JAMAIS être codés en dur dans les scripts !**  
+✅ Toujours passer par des variables d'environnement ou fichiers `.env`
 
 ---
 

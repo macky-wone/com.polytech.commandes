@@ -215,15 +215,15 @@ curl -s http://localhost:8080/api/commandes/$COMMANDE | jq '.total'
 
 ## 🔍 Codes HTTP attendus
 
-| Méthode | Code | Description |
-|---------|------|-------------|
-| GET | 200 | OK - Ressource trouvée |
-| POST | 201 | Created - Ressource créée |
-| PUT | 200 | OK - Mise à jour réussie |
-| PATCH | 200 | OK - Modification partielle |
-| DELETE | 204 | No Content - Suppression réussie |
-| GET (inexistant) | 404 | Not Found |
-| POST (validation) | 400 | Bad Request |
+| Méthode           | Code|        Description               |
+|-------------------|-----|----------------------------------|
+| GET               | 200 | OK - Ressource trouvée           |
+| POST              | 201 | Created - Ressource créée        |
+| PUT               | 200 | OK - Mise à jour réussie         |
+| PATCH             | 200 | OK - Modification partielle      |
+| DELETE            | 204 | No Content - Suppression réussie |
+| GET (inexistant)  | 404 | Not Found                        |
+| POST (validation) | 400 | Bad Request                      |
 
 ---
 

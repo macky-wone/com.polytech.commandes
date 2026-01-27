@@ -4,7 +4,7 @@ import com.polytech.commandes.com.polytech.commandes.dto.LigneCommandeDTO;
 import com.polytech.commandes.com.polytech.commandes.entity.Commande;
 import com.polytech.commandes.com.polytech.commandes.entity.LigneCommande;
 import com.polytech.commandes.com.polytech.commandes.entity.Produit;
-import com.polytech.commandes.com.polytech.commandes.exception.StockInsuffisantException;
+import com.polytech.commandes.com.polytech.commandes.service.PolytechApiError;
 import com.polytech.commandes.com.polytech.commandes.repository.CommandeRepository;
 import com.polytech.commandes.com.polytech.commandes.repository.LigneCommandeRepository;
 import com.polytech.commandes.com.polytech.commandes.repository.ProduitRepository;
@@ -31,14 +31,14 @@ public class LigneCommandeServiceImpl implements LigneCommandeService {
     @Override
     public LigneCommandeDTO createLigneCommande(LigneCommandeDTO ligneCommandeDTO) {
         Commande commande = commandeRepository.findById(ligneCommandeDTO.getCommandeId())
-                .orElseThrow(() -> new IllegalArgumentException("Commande not found"));
+                .orElseThrow(() -> new PolytechApiError(404, "Commande not found"));
 
         Produit produit = produitRepository.findById(ligneCommandeDTO.getProduitId())
-                .orElseThrow(() -> new IllegalArgumentException("Product not found"));
+                .orElseThrow(() -> new PolytechApiError(404, "Product not found"));
 
         // Check stock
         if (produit.getStock() < ligneCommandeDTO.getQuantite()) {
-            throw new StockInsuffisantException("Insufficient stock for product: " + produit.getNom());
+            throw new PolytechApiError(422, "Insufficient stock for product: " + produit.getNom());
         }
 
         LigneCommande ligneCommande = new LigneCommande(commande, produit, ligneCommandeDTO.getQuantite());
@@ -63,7 +63,7 @@ public class LigneCommandeServiceImpl implements LigneCommandeService {
     @Override
     public LigneCommandeDTO updateLigneCommande(Long id, LigneCommandeDTO ligneCommandeDTO) {
         LigneCommande ligneCommande = ligneCommandeRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Ligne Commande not found"));
+                .orElseThrow(() -> new PolytechApiError(404, "Ligne Commande not found"));
 
         ligneCommande.setQuantite(ligneCommandeDTO.getQuantite());
         ligneCommande.setPrixUnitaire(ligneCommandeDTO.getPrixUnitaire());

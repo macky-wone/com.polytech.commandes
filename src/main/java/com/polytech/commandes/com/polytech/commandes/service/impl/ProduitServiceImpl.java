@@ -4,6 +4,7 @@ import com.polytech.commandes.com.polytech.commandes.dto.ProduitDTO;
 import com.polytech.commandes.com.polytech.commandes.entity.Produit;
 import com.polytech.commandes.com.polytech.commandes.repository.ProduitRepository;
 import com.polytech.commandes.com.polytech.commandes.service.ProduitService;
+import com.polytech.commandes.com.polytech.commandes.service.PolytechApiError;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,7 @@ public class ProduitServiceImpl implements ProduitService {
     @Override
     public ProduitDTO createProduit(ProduitDTO produitDTO) {
         if (produitRepository.existsByNom(produitDTO.getNom())) {
-            throw new IllegalArgumentException("Product with this name already exists");
+            throw new PolytechApiError(409, "Product with this name already exists");
         }
 
         Produit produit = new Produit(produitDTO.getNom(), produitDTO.getPrix(), produitDTO.getStock());
@@ -36,7 +37,7 @@ public class ProduitServiceImpl implements ProduitService {
     @Override
     public ProduitDTO updateProduit(Long id, ProduitDTO produitDTO) {
         Produit produit = produitRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Product not found"));
+                .orElseThrow(() -> new PolytechApiError(404, "Product not found"));
 
         produit.setNom(produitDTO.getNom());
         produit.setPrix(produitDTO.getPrix());
@@ -66,11 +67,11 @@ public class ProduitServiceImpl implements ProduitService {
     @Override
     public void updateStock(Long id, Integer quantite) {
         Produit produit = produitRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Product not found"));
+                .orElseThrow(() -> new PolytechApiError(404, "Product not found"));
 
         int newStock = produit.getStock() - quantite;
         if (newStock < 0) {
-            throw new IllegalArgumentException("Insufficient stock");
+            throw new PolytechApiError(422, "Insufficient stock");
         }
 
         produit.setStock(newStock);

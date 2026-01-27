@@ -7,6 +7,7 @@ import com.polytech.commandes.com.polytech.commandes.entity.StatusCommande;
 import com.polytech.commandes.com.polytech.commandes.repository.ClientRepository;
 import com.polytech.commandes.com.polytech.commandes.repository.CommandeRepository;
 import com.polytech.commandes.com.polytech.commandes.service.CommandeService;
+import com.polytech.commandes.com.polytech.commandes.service.PolytechApiError;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +27,7 @@ public class CommandeServiceImpl implements CommandeService {
     @Override
     public CommandeDTO createCommande(CommandeDTO commandeDTO) {
         Client client = clientRepository.findById(commandeDTO.getClientId())
-                .orElseThrow(() -> new IllegalArgumentException("Client not found"));
+                .orElseThrow(() -> new PolytechApiError(404, "Client not found"));
 
         Commande commande = new Commande(client);
         Commande savedCommande = commandeRepository.save(commande);
@@ -41,7 +42,7 @@ public class CommandeServiceImpl implements CommandeService {
     @Override
     public CommandeDTO updateCommande(Long id, CommandeDTO commandeDTO) {
         Commande commande = commandeRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Commande not found"));
+                .orElseThrow(() -> new PolytechApiError(404, "Commande not found"));
 
         if (commandeDTO.getStatus() != null) {
             commande.setStatus(commandeDTO.getStatus());
@@ -80,7 +81,7 @@ public class CommandeServiceImpl implements CommandeService {
     @Override
     public CommandeDTO updateCommandeStatus(Long id, StatusCommande status) {
         Commande commande = commandeRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Commande not found"));
+                .orElseThrow(() -> new PolytechApiError(404, "Commande not found"));
 
         commande.setStatus(status);
         Commande updatedCommande = commandeRepository.save(commande);

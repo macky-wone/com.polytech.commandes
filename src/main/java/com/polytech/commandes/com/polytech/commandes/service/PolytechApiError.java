@@ -1,17 +1,35 @@
 package com.polytech.commandes.com.polytech.commandes.service;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-@AllArgsConstructor
-@Getter
+/**
+ * Exception wrapper used across services to return an HTTP status and message.
+ */
 public class PolytechApiError extends RuntimeException {
-    private final int code;
-    private final String msg;
+    private final HttpStatus status;
+    private final String message;
 
-    @SuppressWarnings("rawtypes")
-    public ResponseEntity getResponse() {
-        return ResponseEntity.status(code).body(msg);
+    public PolytechApiError(HttpStatus status, String message) {
+        super(message);
+        this.status = status;
+        this.message = message;
+    }
+
+    public PolytechApiError(String message) {
+        this(HttpStatus.BAD_REQUEST, message);
+    }
+
+    public HttpStatus getStatus() {
+        return status;
+    }
+
+    @Override
+    public String getMessage() {
+        return message;
+    }
+
+    public ResponseEntity<String> getResponse() {
+        return ResponseEntity.status(status).body(message);
     }
 }

@@ -441,13 +441,13 @@ CLIENT
 ## 📞 Support
 
 **Encadrant :** Dr Samba SIDIBE  
-**Email :** <ssidibe@ept.edu.sn>
+**Email :** 
 
 ---
 
 ## 📜 Licence
 
-IPSL - Cycle Ingénieur - 2026
+
 
 ---
 

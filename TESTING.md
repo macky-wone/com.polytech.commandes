@@ -2,6 +2,20 @@
 
 ## 🧪 Collection Postman (ou équivalent cURL)
 
+### Authentification JWT
+
+Avant d'appeler les endpoints protégés, récupérez un token :
+
+```bash
+TOKEN=$(curl -s -X POST http://localhost:8080/api/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"username":"admin","password":"admin123"}' | jq -r '.token')
+
+echo "Token: $TOKEN"
+```
+
+Ensuite, ajoutez `-H "Authorization: Bearer $TOKEN"` à toutes les requêtes suivantes.
+
 ### 1. Tester les Clients
 
 #### Créer un client

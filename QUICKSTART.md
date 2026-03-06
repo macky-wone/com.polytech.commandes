@@ -29,6 +29,18 @@ http://localhost:8080/swagger-ui.html
 
 ## 📡 Exemples cURL rapides
 
+### Authentification JWT
+
+```bash
+TOKEN=$(curl -s -X POST http://localhost:8080/api/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"username":"admin","password":"admin123"}' | jq -r '.token')
+
+echo "Token: $TOKEN"
+```
+
+Ajoutez `-H "Authorization: Bearer $TOKEN"` à chaque requête suivante.
+
 ```bash
 # ===== CLIENTS =====
 # Créer

@@ -270,6 +270,58 @@ curl -X PATCH "http://localhost:8080/api/commandes/1/status?status=VALIDATED"
 curl http://localhost:8080/api/commandes/1
 ```
 
+### Authentification (JWT)
+
+L'application implémente une authentification basée sur les tokens JWT (JSON Web Tokens) pour sécuriser l'accès aux API REST.
+
+#### Fonctionnement
+
+- **Endpoint public** : `/api/auth/login` - Permet de s'authentifier avec username et password
+- **Endpoints protégés** : Tous les autres endpoints `/api/**` nécessitent un token JWT valide dans l'en-tête `Authorization: Bearer <token>`
+- **Durée du token** : 1 heure par défaut (configurable via `jwt.expiration`)
+- **Secret JWT** : Configurable via `jwt.secret` (défaut: "secret")
+
+#### Utilisateur par défaut (profil dev)
+
+- **Username** : `admin`
+- **Password** : `admin123`
+- **Rôle** : `ROLE_USER`
+
+#### Exemple d'utilisation
+
+1. **Authentification** :
+
+```bash
+curl -X POST http://localhost:8080/api/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"username":"admin","password":"admin123"}'
+```
+
+Réponse :
+
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+}
+```
+
+1. **Utilisation du token** :
+
+```bash
+curl http://localhost:8080/api/clients \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+```
+
+#### Implémentation technique
+
+- **JwtUtil** : Génération et validation des tokens JWT
+- **JwtAuthenticationFilter** : Filtre Spring Security pour intercepter les requêtes et valider les tokens
+- **SecurityConfig** : Configuration Spring Security avec authentification stateless
+- **AppUser** : Entité utilisateur implémentant UserDetails
+- **UserService** : Service d'authentification utilisateur
+
+⚠️ **Sécurité** : En production, changez le secret JWT et utilisez des mots de passe hashés forts.
+
 ---
 
 ## 🔧 Configuration
@@ -441,13 +493,11 @@ CLIENT
 ## 📞 Support
 
 **Encadrant :** Dr Samba SIDIBE  
-**Email :** 
+**Email :**
 
 ---
 
 ## 📜 Licence
-
-
 
 ---
 
